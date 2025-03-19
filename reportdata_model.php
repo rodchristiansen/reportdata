@@ -8,6 +8,10 @@ class Reportdata_model extends Eloquent
 
     protected $fillable = [
       'serial_number',
+      'os_version_win',
+      'cpu_win',
+      'ram_win',
+      'disk_win',      
       'console_user',
       'long_username',
       'uid',

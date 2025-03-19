@@ -29,7 +29,19 @@ class Reportdata_controller extends Module_controller
 
     public function index()
     {
-        echo "You've loaded the Reportdata module!";
+        $serial_number = post('serial_number');
+        $platform = post('platform', 'mac'); // default to 'mac'
+        $json_data = post('data');
+    
+        $processor = new Machine_processor();
+    
+        if ($platform === 'windows') {
+            $processor->processWindows($serial_number, $json_data);
+        } else {
+            $processor->run($serial_number, $json_data);
+        }
+    
+        jsonView(['status' => 'success']);
     }
 
     public function report($serial_number)

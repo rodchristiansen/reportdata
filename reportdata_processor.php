@@ -52,5 +52,19 @@ class Reportdata_processor extends Processor
             store_event($this->serial_number, 'reportdata', 'info', 'new_client');
         }
     }
-
+    // Handle Windows Data Processing
+    public function processWindows($serial_number, $json_data)
+    {
+        $data = json_decode($json_data, true);
+    
+        Reportdata_model::updateOrCreate(
+            ['serial_number' => $serial_number],
+            [
+                'os_version_win' => $data['os_version'],
+                'cpu_win' => $data['cpu'],
+                'ram_win' => $data['ram'],
+                'disk_win' => json_encode($data['disk']),
+            ]
+        );
+    }
 }
